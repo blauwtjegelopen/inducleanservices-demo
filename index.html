@@ -99,11 +99,11 @@
 
     <section class="service-nav" aria-label="Onze vijf disciplines">
       <div class="container service-nav-grid">
-        <a href="#reiniging"><span>01</span>Reiniging</a>
-        <a href="#steigerbouw"><span>02</span>Steigerbouw</a>
-        <a href="#gevelonderhoud"><span>03</span>Gevelonderhoud</a>
-        <a href="#vve-onderhoud"><span>04</span>VvE onderhoud</a>
-        <a href="#vastgoedonderhoud"><span>05</span>Vastgoedonderhoud</a>
+        <a href="reiniging.html"><span>01</span>Reiniging</a>
+        <a href="steigerbouw.html"><span>02</span>Steigerbouw</a>
+        <a href="gevelonderhoud.html"><span>03</span>Gevelonderhoud</a>
+        <a href="vve-onderhoud.html"><span>04</span>VvE onderhoud</a>
+        <a href="vastgoedonderhoud.html"><span>05</span>Vastgoedonderhoud</a>
       </div>
     </section>
 
@@ -143,6 +143,7 @@
                 <li>Desinfectie en sanering</li>
                 <li>Biohazard en calamiteiten</li>
               </ul>
+              <a class="text-link card-link" href="reiniging.html">Bekijk reiniging <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -157,6 +158,7 @@
                 <li>Voor gevels en onderhoud</li>
                 <li>Afgestemd op de werklocatie</li>
               </ul>
+              <a class="text-link card-link" href="steigerbouw.html">Bekijk steigerbouw <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -171,6 +173,7 @@
                 <li>Vogelpoep en aanslag verwijderen</li>
                 <li>Bestrating en buitenterrein</li>
               </ul>
+              <a class="text-link card-link" href="gevelonderhoud.html">Bekijk gevelonderhoud <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -185,6 +188,7 @@
                 <li>Galerijen, liften en entrees</li>
                 <li>Bergingen en parkeerruimtes</li>
               </ul>
+              <a class="text-link card-link" href="vve-onderhoud.html">Bekijk VvE-onderhoud <span aria-hidden="true">→</span></a>
             </div>
           </article>
 
@@ -199,6 +203,7 @@
                 <li>Ontruiming en herstelreiniging</li>
                 <li>Periodieke onderhoudsplanning</li>
               </ul>
+              <a class="text-link card-link" href="vastgoedonderhoud.html">Bekijk vastgoedonderhoud <span aria-hidden="true">→</span></a>
             </div>
           </article>
         </div>
@@ -334,7 +339,15 @@
           </div>
         </div>
 
-        <form class="contact-form" id="contact-form">
+        <form class="contact-form" id="contact-form" action="https://formsubmit.co/info@inducleanservices.nl" method="POST">
+          <input type="hidden" name="_subject" value="Nieuwe websiteaanvraag voor Induclean">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://blauwtjegelopen.github.io/inducleanservices-demo/bedankt.html">
+          <input type="hidden" name="_url" value="https://blauwtjegelopen.github.io/inducleanservices-demo/">
+          <input type="hidden" name="_autoresponse" value="Bedankt voor uw aanvraag bij Induclean. Wij hebben uw bericht ontvangen en nemen contact met u op om de werkzaamheden en planning te bespreken.">
+          <label class="hp-field" aria-hidden="true">Laat dit veld leeg
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off">
+          </label>
           <div class="form-row">
             <label>Naam
               <input type="text" name="naam" autocomplete="name" placeholder="Uw naam" required>
@@ -363,11 +376,18 @@
               <option>Anders</option>
             </select>
           </label>
+          <label>Locatie of postcode
+            <input type="text" name="locatie" autocomplete="postal-code" placeholder="Bijvoorbeeld Schiedam of 3119 ED">
+          </label>
           <label>Toelichting
             <textarea name="bericht" rows="5" placeholder="Omschrijf kort de locatie, werkzaamheden en gewenste planning" required></textarea>
           </label>
-          <button class="btn btn-primary" type="submit">Aanvraag per e-mail versturen</button>
-          <p class="form-note" id="form-note">Na klikken opent uw eigen e-mailprogramma met de ingevulde aanvraag.</p>
+          <label class="privacy-check">
+            <input type="checkbox" name="privacy-akkoord" value="Ja" required>
+            <span>Ik ga ermee akkoord dat Induclean mijn gegevens gebruikt om contact op te nemen over deze aanvraag. Lees de <a href="privacy.html">privacyverklaring</a>.</span>
+          </label>
+          <button class="btn btn-primary" type="submit">Aanvraag veilig versturen</button>
+          <p class="form-note" id="form-note">Uw aanvraag wordt rechtstreeks en beveiligd verzonden. U ontvangt een bevestiging per e-mail.</p>
         </form>
       </div>
     </section>
@@ -383,11 +403,11 @@
       </div>
       <div>
         <h3>Diensten</h3>
-        <a href="#reiniging">Reiniging</a>
-        <a href="#steigerbouw">Steigerbouw</a>
-        <a href="#gevelonderhoud">Gevelonderhoud</a>
-        <a href="#vve-onderhoud">VvE onderhoud</a>
-        <a href="#vastgoedonderhoud">Vastgoedonderhoud</a>
+        <a href="reiniging.html">Reiniging</a>
+        <a href="steigerbouw.html">Steigerbouw</a>
+        <a href="gevelonderhoud.html">Gevelonderhoud</a>
+        <a href="vve-onderhoud.html">VvE onderhoud</a>
+        <a href="vastgoedonderhoud.html">Vastgoedonderhoud</a>
       </div>
       <div>
         <h3>Contact</h3>
@@ -406,7 +426,10 @@
     </div>
     <div class="container footer-bottom">
       <span>© <span id="year"></span> Induclean. Alle rechten voorbehouden.</span>
-      <span>Specialistische reiniging & totaalonderhoud</span>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacyverklaring</a>
+        <span>Specialistische reiniging & totaalonderhoud</span>
+      </div>
     </div>
   </footer>
 

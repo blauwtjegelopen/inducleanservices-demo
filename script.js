@@ -5,51 +5,56 @@ const year = document.querySelector('#year');
 const contactForm = document.querySelector('#contact-form');
 
 function updateHeader() {
-  header.classList.toggle('scrolled', window.scrollY > 12);
+  if (header) header.classList.toggle('scrolled', window.scrollY > 12);
 }
 
 function closeMenu() {
+  if (!navLinks || !menuToggle) return;
   navLinks.classList.remove('open');
   menuToggle.setAttribute('aria-expanded', 'false');
   menuToggle.setAttribute('aria-label', 'Menu openen');
   document.body.classList.remove('menu-open');
 }
 
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
+if (header) {
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+}
 
-year.textContent = new Date().getFullYear();
+if (year) year.textContent = new Date().getFullYear();
 
-menuToggle.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-  menuToggle.setAttribute('aria-label', isOpen ? 'Menu sluiten' : 'Menu openen');
-  document.body.classList.toggle('menu-open', isOpen);
-});
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Menu sluiten' : 'Menu openen');
+    document.body.classList.toggle('menu-open', isOpen);
+  });
 
-navLinks.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', closeMenu);
-});
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+}
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMenu();
 });
 
-contactForm.addEventListener('submit', (event) => {
-  event.preventDefault();
+if (contactForm) {
+  const requestedService = new URLSearchParams(window.location.search).get('dienst');
+  const serviceSelect = contactForm.querySelector('select[name="dienst"]');
 
-  const data = new FormData(contactForm);
-  const subject = `Websiteaanvraag: ${data.get('dienst')}`;
-  const body = [
-    `Naam: ${data.get('naam')}`,
-    `Organisatie: ${data.get('organisatie') || '-'}`,
-    `E-mail: ${data.get('email')}`,
-    `Telefoon: ${data.get('telefoon') || '-'}`,
-    `Dienst: ${data.get('dienst')}`,
-    '',
-    'Toelichting:',
-    data.get('bericht')
-  ].join('\n');
+  if (requestedService && serviceSelect) {
+    const matchingOption = [...serviceSelect.options].find((option) => option.text === requestedService);
+    if (matchingOption) serviceSelect.value = matchingOption.value;
+  }
 
-  window.location.href = `mailto:info@inducleanservices.nl?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
+  contactForm.addEventListener('submit', () => {
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const formNote = contactForm.querySelector('#form-note');
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Aanvraag wordt verzonden...';
+    formNote.textContent = 'Een moment, uw aanvraag wordt veilig verwerkt.';
+  });
+}
