@@ -52,7 +52,16 @@
       </button>
 
       <div class="nav-links" id="main-menu">
-        <a href="#diensten">Diensten</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-controls="services-menu">Diensten <span aria-hidden="true">⌄</span></button>
+          <div class="nav-dropdown-menu" id="services-menu">
+            <a href="reiniging.html"><span>01</span>Reiniging</a>
+            <a href="steigerbouw.html"><span>02</span>Steigerbouw</a>
+            <a href="gevelonderhoud.html"><span>03</span>Gevelonderhoud</a>
+            <a href="vve-onderhoud.html"><span>04</span>VvE-onderhoud</a>
+            <a href="vastgoedonderhoud.html"><span>05</span>Vastgoedonderhoud</a>
+          </div>
+        </div>
         <a href="#voor-wie">Voor wie</a>
         <a href="#specialistisch">Specialistisch</a>
         <a href="#werkwijze">Werkwijze</a>
@@ -131,7 +140,7 @@
         </div>
 
         <div class="services-grid">
-          <article class="service-card service-card-featured" id="reiniging">
+          <a class="service-card service-card-featured" id="reiniging" href="reiniging.html" aria-label="Bekijk de dienstpagina Reiniging">
             <div class="service-number">01</div>
             <div>
               <p class="service-label">Basis & specialistisch</p>
@@ -143,11 +152,11 @@
                 <li>Desinfectie en sanering</li>
                 <li>Biohazard en calamiteiten</li>
               </ul>
-              <a class="text-link card-link" href="reiniging.html">Bekijk reiniging <span aria-hidden="true">→</span></a>
+              <span class="text-link card-link">Bekijk reiniging <span aria-hidden="true">→</span></span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" id="steigerbouw">
+          <a class="service-card" id="steigerbouw" href="steigerbouw.html" aria-label="Bekijk de dienstpagina Steigerbouw">
             <div class="service-number">02</div>
             <div>
               <p class="service-label">Veilig bereikbaar</p>
@@ -158,11 +167,11 @@
                 <li>Voor gevels en onderhoud</li>
                 <li>Afgestemd op de werklocatie</li>
               </ul>
-              <a class="text-link card-link" href="steigerbouw.html">Bekijk steigerbouw <span aria-hidden="true">→</span></a>
+              <span class="text-link card-link">Bekijk steigerbouw <span aria-hidden="true">→</span></span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" id="gevelonderhoud">
+          <a class="service-card" id="gevelonderhoud" href="gevelonderhoud.html" aria-label="Bekijk de dienstpagina Gevelonderhoud">
             <div class="service-number">03</div>
             <div>
               <p class="service-label">Buitenzijde</p>
@@ -173,11 +182,11 @@
                 <li>Vogelpoep en aanslag verwijderen</li>
                 <li>Bestrating en buitenterrein</li>
               </ul>
-              <a class="text-link card-link" href="gevelonderhoud.html">Bekijk gevelonderhoud <span aria-hidden="true">→</span></a>
+              <span class="text-link card-link">Bekijk gevelonderhoud <span aria-hidden="true">→</span></span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" id="vve-onderhoud">
+          <a class="service-card" id="vve-onderhoud" href="vve-onderhoud.html" aria-label="Bekijk de dienstpagina VvE-onderhoud">
             <div class="service-number">04</div>
             <div>
               <p class="service-label">Gemeenschappelijke ruimtes</p>
@@ -188,11 +197,11 @@
                 <li>Galerijen, liften en entrees</li>
                 <li>Bergingen en parkeerruimtes</li>
               </ul>
-              <a class="text-link card-link" href="vve-onderhoud.html">Bekijk VvE-onderhoud <span aria-hidden="true">→</span></a>
+              <span class="text-link card-link">Bekijk VvE-onderhoud <span aria-hidden="true">→</span></span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card service-card-dark" id="vastgoedonderhoud">
+          <a class="service-card service-card-dark" id="vastgoedonderhoud" href="vastgoedonderhoud.html" aria-label="Bekijk de dienstpagina Vastgoedonderhoud">
             <div class="service-number">05</div>
             <div>
               <p class="service-label">Eén onderhoudspartner</p>
@@ -203,9 +212,9 @@
                 <li>Ontruiming en herstelreiniging</li>
                 <li>Periodieke onderhoudsplanning</li>
               </ul>
-              <a class="text-link card-link" href="vastgoedonderhoud.html">Bekijk vastgoedonderhoud <span aria-hidden="true">→</span></a>
+              <span class="text-link card-link">Bekijk vastgoedonderhoud <span aria-hidden="true">→</span></span>
             </div>
-          </article>
+          </a>
         </div>
       </div>
     </section>
