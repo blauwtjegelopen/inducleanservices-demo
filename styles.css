@@ -547,6 +547,7 @@ a.service-card:focus-visible { outline: 3px solid rgba(10,73,168,0.35); outline-
 .contact-form .btn { width: 100%; border: 0; }
 .contact-form .btn:disabled { cursor: wait; opacity: 0.72; }
 .form-note { margin: -2px 0 0; color: var(--muted); font-size: 0.76rem; text-align: center; }
+.form-note.is-error { color: #b42318; font-weight: 750; }
 .hp-field { display: none !important; }
 .contact-form .privacy-check { display: flex; grid-template-columns: none; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 0.77rem; font-weight: 550; line-height: 1.5; }
 .contact-form .privacy-check input { width: 18px; height: 18px; margin: 1px 0 0; flex: 0 0 auto; accent-color: var(--blue); box-shadow: none; }
@@ -652,6 +653,84 @@ a.service-card:focus-visible { outline: 3px solid rgba(10,73,168,0.35); outline-
 .whatsapp-float svg { width: 27px; height: 27px; flex: 0 0 27px; fill: currentColor; }
 .whatsapp-float:hover { transform: translateY(-3px); color: var(--white); background: #188d47; box-shadow: 0 18px 40px rgba(8,29,53,0.34); }
 .whatsapp-float:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+
+.cookie-consent[hidden], .cookie-consent [hidden] { display: none !important; }
+.cookie-consent {
+  position: fixed;
+  z-index: 200;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  pointer-events: none;
+}
+.cookie-consent-card {
+  width: min(100%, 920px);
+  margin-inline: auto;
+  padding: clamp(22px, 4vw, 34px);
+  pointer-events: auto;
+  border: 1px solid rgba(223,230,239,0.95);
+  border-radius: 24px;
+  color: var(--ink);
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 24px 80px rgba(8,29,53,0.28);
+  backdrop-filter: blur(16px);
+}
+.cookie-consent-card h2 { margin: 4px 0 10px; color: var(--navy); font-size: clamp(1.45rem, 3vw, 2rem); }
+.cookie-consent-card p { margin: 0; color: var(--muted); }
+.cookie-consent-eyebrow { color: var(--blue) !important; font-size: 0.72rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+.cookie-consent-privacy { margin-top: 10px; display: inline-block; color: var(--blue); font-size: 0.84rem; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.cookie-consent-actions { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.cookie-consent-button {
+  min-height: 48px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--navy);
+  background: var(--white);
+  font-size: 0.86rem;
+  font-weight: 850;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.cookie-consent-button:hover { transform: translateY(-1px); border-color: rgba(10,73,168,0.42); background: var(--blue-soft); }
+.cookie-consent-button:focus-visible { outline: 3px solid rgba(10,73,168,0.28); outline-offset: 2px; }
+.cookie-consent-button-strong { border-color: var(--navy); color: var(--white); background: var(--navy); }
+.cookie-consent-button-strong:hover { border-color: var(--blue); color: var(--white); background: var(--blue); }
+.cookie-consent-preferences .cookie-consent-actions { grid-template-columns: 0.7fr 1.3fr; }
+.cookie-consent-option {
+  margin-top: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--surface);
+}
+.cookie-consent-option strong, .cookie-consent-option span { display: block; }
+.cookie-consent-option strong { color: var(--navy); font-size: 0.9rem; }
+.cookie-consent-option span { margin-top: 2px; color: var(--muted); font-size: 0.78rem; }
+.cookie-consent-option input { width: 22px; height: 22px; flex: 0 0 22px; accent-color: var(--blue); }
+.cookie-settings-link {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: 0;
+  color: rgba(255,255,255,0.78);
+  background: transparent;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cookie-settings-link:hover { color: var(--white); }
+
+@media (max-width: 700px) {
+  .cookie-consent { left: 10px; right: 10px; bottom: 10px; }
+  .cookie-consent-card { max-height: calc(100vh - 20px); overflow-y: auto; border-radius: 20px; }
+  .cookie-consent-actions, .cookie-consent-preferences .cookie-consent-actions { grid-template-columns: 1fr; }
+  .cookie-consent-summary .cookie-consent-actions [data-consent-action="accept"] { order: -1; }
+}
 
 @media (max-width: 1080px) {
   .nav-links { gap: 16px; font-size: 0.86rem; }

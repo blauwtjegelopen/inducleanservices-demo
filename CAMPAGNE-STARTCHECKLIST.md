@@ -2,8 +2,8 @@
 
 ## 1. Website en aanvragen
 
-- Publiceer v8 en test alle drie de campagnepagina's op mobiel en desktop.
-- Activeer en test FormSubmit met een echte testaanvraag.
+- Publiceer v8.1 en test alle drie de campagnepagina's op mobiel en desktop.
+- Test het STRATO-formulier met één herkenbare testaanvraag.
 - Controleer of aanvraag, automatische bevestiging en bedankpagina goed werken.
 - Controleer telefoon-, WhatsApp- en e-maillinks.
 - Gebruik geen certificeringsclaim voordat het actuele bewijs is gecontroleerd.

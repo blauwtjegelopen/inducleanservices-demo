@@ -9,6 +9,37 @@ const whatsappUrl = 'https://wa.me/31103220272?text=Goedendag%20Induclean%2C%20i
 const campaignFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid'];
 const pageParameters = new URLSearchParams(window.location.search);
 
+function pushTrackingEvent(eventName, parameters = {}) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: eventName, ...parameters });
+}
+
+function setPendingLead() {
+  try {
+    window.sessionStorage.setItem('induclean_pending_lead', '1');
+  } catch (error) {
+    // Het formulier blijft werken wanneer browseropslag niet beschikbaar is.
+  }
+}
+
+function consumePendingLead() {
+  try {
+    if (window.sessionStorage.getItem('induclean_pending_lead') !== '1') return false;
+    window.sessionStorage.removeItem('induclean_pending_lead');
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function clearPendingLead() {
+  try {
+    window.sessionStorage.removeItem('induclean_pending_lead');
+  } catch (error) {
+    // Het formulier blijft werken wanneer browseropslag niet beschikbaar is.
+  }
+}
+
 try {
   if (!sessionStorage.getItem('induclean_landingspagina')) {
     sessionStorage.setItem('induclean_landingspagina', window.location.href);
@@ -36,6 +67,19 @@ whatsappLink.innerHTML = `
   <span class="whatsapp-float-label">WhatsApp</span>
 `;
 document.body.append(whatsappLink);
+
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href]');
+  if (!link) return;
+
+  const href = link.getAttribute('href') || '';
+  let contactMethod = '';
+  if (href.startsWith('tel:')) contactMethod = 'phone';
+  if (href.startsWith('mailto:')) contactMethod = 'email';
+  if (href.includes('wa.me/') || href.includes('api.whatsapp.com/')) contactMethod = 'whatsapp';
+
+  if (contactMethod) pushTrackingEvent('contact_click', { contact_method: contactMethod });
+});
 
 function updateHeader() {
   if (header) header.classList.toggle('scrolled', window.scrollY > 12);
@@ -95,8 +139,19 @@ document.addEventListener('keydown', (event) => {
 
 if (contactForm) {
   const requestedService = pageParameters.get('dienst');
+  const formStatus = pageParameters.get('form');
   const serviceSelect = contactForm.querySelector('select[name="dienst"]');
   const dateField = contactForm.querySelector('input[name="gewenste_uitvoerdatum"]');
+  const formNote = contactForm.querySelector('#form-note');
+  let formStarted = false;
+
+  if (formStatus === 'error' || formStatus === 'invalid') {
+    clearPendingLead();
+    formNote.classList.add('is-error');
+    formNote.textContent = formStatus === 'invalid'
+      ? 'Controleer de ingevulde gegevens en probeer het formulier opnieuw te verzenden.'
+      : 'De aanvraag kon niet worden verzonden. Probeer het later opnieuw of neem telefonisch contact op.';
+  }
 
   const setHiddenValue = (name, value) => {
     const field = contactForm.querySelector(`input[name="${name}"]`);
@@ -129,12 +184,24 @@ if (contactForm) {
     if (matchingOption) serviceSelect.value = matchingOption.value;
   }
 
+  contactForm.addEventListener('focusin', () => {
+    if (formStarted) return;
+    formStarted = true;
+    pushTrackingEvent('form_start', { form_id: 'contact-form' });
+  });
+
   contactForm.addEventListener('submit', () => {
     const submitButton = contactForm.querySelector('button[type="submit"]');
-    const formNote = contactForm.querySelector('#form-note');
 
     submitButton.disabled = true;
     submitButton.textContent = 'Aanvraag wordt verzonden...';
     formNote.textContent = 'Een moment, uw aanvraag wordt veilig verwerkt.';
+    setPendingLead();
+    pushTrackingEvent('form_submit', { form_id: 'contact-form' });
   });
+}
+
+const leadStatus = pageParameters.get('status');
+if (window.location.pathname.endsWith('/bedankt.html') && leadStatus === 'success' && consumePendingLead()) {
+  pushTrackingEvent('generate_lead', { lead_source: 'contact_form' });
 }
