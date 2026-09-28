@@ -6,6 +6,22 @@ const navDropdownToggle = document.querySelector('.nav-dropdown-toggle');
 const year = document.querySelector('#year');
 const contactForm = document.querySelector('#contact-form');
 const whatsappUrl = 'https://wa.me/31103220272?text=Goedendag%20Induclean%2C%20ik%20neem%20contact%20op%20via%20de%20website%20en%20wil%20graag%20informatie%20over%20jullie%20diensten.';
+const campaignFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid'];
+const pageParameters = new URLSearchParams(window.location.search);
+
+try {
+  if (!sessionStorage.getItem('induclean_landingspagina')) {
+    sessionStorage.setItem('induclean_landingspagina', window.location.href);
+    sessionStorage.setItem('induclean_verwijzer', document.referrer || 'Direct bezoek');
+  }
+
+  campaignFields.forEach((field) => {
+    const value = pageParameters.get(field);
+    if (value) sessionStorage.setItem(`induclean_${field}`, value);
+  });
+} catch (error) {
+  // Het formulier blijft werken wanneer browseropslag niet beschikbaar is.
+}
 
 const whatsappLink = document.createElement('a');
 whatsappLink.className = 'whatsapp-float';
@@ -78,8 +94,35 @@ document.addEventListener('keydown', (event) => {
 });
 
 if (contactForm) {
-  const requestedService = new URLSearchParams(window.location.search).get('dienst');
+  const requestedService = pageParameters.get('dienst');
   const serviceSelect = contactForm.querySelector('select[name="dienst"]');
+  const dateField = contactForm.querySelector('input[name="gewenste_uitvoerdatum"]');
+
+  const setHiddenValue = (name, value) => {
+    const field = contactForm.querySelector(`input[name="${name}"]`);
+    if (field) field.value = value || '';
+  };
+
+  const createLeadId = () => {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+    return `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  };
+
+  setHiddenValue('lead_id', createLeadId());
+
+  try {
+    setHiddenValue('landingspagina', sessionStorage.getItem('induclean_landingspagina') || window.location.href);
+    setHiddenValue('verwijzer', sessionStorage.getItem('induclean_verwijzer') || document.referrer || 'Direct bezoek');
+    campaignFields.forEach((field) => {
+      setHiddenValue(field, pageParameters.get(field) || sessionStorage.getItem(`induclean_${field}`));
+    });
+  } catch (error) {
+    setHiddenValue('landingspagina', window.location.href);
+    setHiddenValue('verwijzer', document.referrer || 'Direct bezoek');
+    campaignFields.forEach((field) => setHiddenValue(field, pageParameters.get(field)));
+  }
+
+  if (dateField) dateField.min = new Date().toISOString().split('T')[0];
 
   if (requestedService && serviceSelect) {
     const matchingOption = [...serviceSelect.options].find((option) => option.text === requestedService);
